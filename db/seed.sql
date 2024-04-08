@@ -8,7 +8,7 @@ VALUES
 INSERT INTO fridges (location, notes, user_id)
 VALUES 
 ('Kitchen', 'Main fridge in the kitchen', 1),
-('Garage', 'Extra fridge in the garage', 1)
+('Garage', 'Extra fridge in the garage', 1);
 
 INSERT INTO categories (name)
 VALUES
@@ -20,7 +20,7 @@ VALUES
 ('Beverages'),
 ('Seafood'),
 ('Frozen'),
-('Misc')
+('Misc');
 
 INSERT INTO items (name, expiration_date, amount_paid, fridge_id, user_id, category_id)
 VALUES
@@ -42,4 +42,4 @@ VALUES
 ('Egg salad', '2024-04-18', 500, 1, 1, 9),
 ('Caesar salad with chicken', '2024-04-29', 500, 1, 1, 9),
 ('Birthday cake', '2024-04-29', NULL , 2, 1, 9),
-('Leftover pizza', '2024-04-20', NULL , 2, 1, 9),
+('Leftover pizza', '2024-04-20', NULL , 2, 1, 9);

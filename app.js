@@ -3,8 +3,11 @@ const cors = require("cors");
 const express = require("express");
 const cron = require("node-cron");
 const cookieParser = require("cookie-parser");
+// const { authenticateToken } = require('./middlewares/authenticateToken')
 
 const authController = require("./controllers/authController");
+const fridgesController = require('./controllers/fridgesController')
+
 
 // CONFIGURATION
 const app = express();
@@ -28,10 +31,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authController);
+app.use('/api/fridges', fridgesController)
 
 // ROUTES
 app.get("/", (_req, res) => {
-  res.send("Welcome to JWT Auth!");
+  res.send("Welcome to Fridge M8!");
 });
 
 // 404 PAGE
