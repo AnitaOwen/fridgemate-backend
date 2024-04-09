@@ -23,10 +23,6 @@ CREATE TABLE fridges (
     user_id INTEGER REFERENCES users(id)
 );
 
-CREATE TABLE categories (
-    id SERIAL PRIMARY KEY, 
-    name VARCHAR(100) NOT NULL
-);
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
@@ -35,6 +31,6 @@ CREATE TABLE items (
     amount_paid INTEGER,
     fridge_id INTEGER REFERENCES fridges(id) ON DELETE CASCADE,
     user_id INTEGER REFERENCES users(id),
-    category_id INTEGER REFERENCES categories(id)
+    category TEXT NOT NULL
 );
 

@@ -78,12 +78,26 @@ const updateItem = async (item) => {
     }
   };
   
+  // CATEGORIES & ITEMS
+  const getCategoriesWithItems = async (fridge_id, user_id) => {
+    try {
+      const categoriesWithItems = await db.any(
+        "SELECT items.*, categories.id AS category_id, categories.name AS category_name FROM items LEFT JOIN categories ON items.category_id = categories.id WHERE items.fridge_id = $2 AND items.user_id = $1",
+        [fridge_id, user_id]
+      )
+      return categoriesWithItems
+    } catch (error) {
+      return error
+    }
+  }
+
 
   module.exports = {
     getAllItems,
     getOneItem, 
     createItem,
     deleteItem,
-    updateItem
+    updateItem,
+    getCategoriesWithItems
   };
   

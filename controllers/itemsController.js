@@ -5,7 +5,8 @@ const {
     getOneItem,
     createItem,
     deleteItem,
-    updateItem
+    updateItem,
+    getCategoriesWithItems
   } = require("../queries/items.js");
 
 const { getOneFridge } = require("../queries/fridges.js");
@@ -27,6 +28,11 @@ items.get("/", async (req, res) => {
       res.status(500).json({ error: "Server error" });
     }
   });
+
+  // items.get("/categories", async (req, res) => {
+  //   const { user_id, fridge_id } = req.params
+  //   const categoriesWithItems = await getCategoriesWithItems(fridge_id, user_id)
+  // })
 
 // SHOW http://localhost:3003/api/fridges/1/2/items/13
 items.get("/:item_id", async (req, res) => {
