@@ -52,11 +52,11 @@ fridges.post("/:user_id",  async (req, res) => {
     }
   });
 
-//  DELETE http://localhost:3003/api/fridges/1/2
-fridges.delete("/user_id/:fridge_id", async (req, res) => {
-    const { user_id, fridge_id } = req.params;
+//  DELETE http://localhost:3003/api/fridges/2
+fridges.delete("/:fridge_id", async (req, res) => {
+    const { fridge_id } = req.params;
   
-    const deletedFridge = await deleteFridge(fridge_id, user_id);
+    const deletedFridge = await deleteFridge(fridge_id);
   
     if (deletedFridge) {
       res.status(200).json(deletedFridge);
@@ -66,7 +66,7 @@ fridges.delete("/user_id/:fridge_id", async (req, res) => {
   });
 
 // UPDATE http://localhost:3003/api/fridges/1/2
-fridges.put("/user_id/:fridge_id", async (req, res) => {
+fridges.put("/:user_id/:fridge_id", async (req, res) => {
     const { user_id, fridge_id } = req.params;
     const updatedFridge = await updateFridge({
       fridge_id,

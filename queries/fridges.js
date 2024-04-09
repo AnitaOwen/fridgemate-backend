@@ -41,8 +41,8 @@ const createFridge = async (fridge) => {
 const deleteFridge = async (fridgeId, userId) => {
     try {
       const deletedFridge = await db.one(
-        "DELETE FROM fridges WHERE id = $1 AND user_id = $2 RETURNING *",
-        [fridgeId, userId]
+        "DELETE FROM fridges WHERE id = $1 RETURNING *",
+        fridgeId
       );
       return deletedFridge;
     } catch (error) {
@@ -54,7 +54,7 @@ const deleteFridge = async (fridgeId, userId) => {
 const updateFridge = async (fridge) => {
     try {
       const updatedFridge = await db.one(
-        "UPDATE fridge SET location=$1, notes=$2 WHERE id=$3 AND user_id=$4 RETURNING *",
+        "UPDATE fridges SET location=$1, notes=$2 WHERE id=$3 AND user_id=$4 RETURNING *",
         [
           fridge.location,
           fridge.notes,

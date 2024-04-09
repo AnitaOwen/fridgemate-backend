@@ -17,12 +17,12 @@ const items = express.Router({ mergeParams: true });
 items.get("/", async (req, res) => {
     const { user_id, fridge_id  } = req.params;
   
-    const allItems = await getAllItems(fridge_id);
+    const items = await getAllItems(fridge_id);
   
     const fridge = await getOneFridge(fridge_id, user_id);
   
     if (fridge.id) {
-      res.status(200).json({ ...fridge, allItems });
+      res.status(200).json({ ...fridge, items });
     } else {
       res.status(500).json({ error: "Server error" });
     }
@@ -36,7 +36,7 @@ items.get("/:item_id", async (req, res) => {
   
     const fridge = await getOneFridge(fridge_id, user_id);
   
-    if (item.fridge_id === fridge.id && item) {
+    if (item && item.fridge_id === fridge.id) {
       res.status(200).json({ ...fridge, item });
     } else {
       res.status(500).json({ error: "Item not found" });
