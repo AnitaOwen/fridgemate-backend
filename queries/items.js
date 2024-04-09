@@ -14,9 +14,20 @@ const getAllItems = async (fridge_id) => {
     }
   };
 
+//SHOW
+const getOneItem = async (itemId) => {
+    try {
+      const oneItem = await db.one(`SELECT * FROM items WHERE id=$1`, itemId);
+      return oneItem;
+    } catch (error) {
+      return error;
+    }
+  };
+  
+
   module.exports = {
     getAllItems,
-    // createReview,
+    getOneItem, 
     // deleteReview,
     // updateReview,
   };
