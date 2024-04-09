@@ -2,8 +2,6 @@ const express = require("express");
 
 const fridges = express.Router();
 const { getAllFridgesByUserId } = require("../queries/fridges")
-const { authenticateToken } = require('../middlewares/authenticateToken')
-
 
 fridges.get('/', async (req,res) => {
     // http://localhost:3003/api/fridges?user=1
