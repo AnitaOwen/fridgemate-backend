@@ -1,6 +1,8 @@
 const express = require("express");
 
 const fridges = express.Router();
+const itemsController = require('./itemsController.js')
+
 const { 
     getAllFridgesByUserId, 
     getOneFridge, 
@@ -8,6 +10,8 @@ const {
     deleteFridge,
     updateFridge
 } = require("../queries/fridges")
+
+fridges.use("/:user_id/:fridge_id/items", itemsController)
 
 //INDEX http://localhost:3003/api/fridges/1
 fridges.get('/:user_id', async (req,res) => {
@@ -62,7 +66,7 @@ fridges.delete("/user_id/:fridge_id", async (req, res) => {
   });
 
 // UPDATE http://localhost:3003/api/fridges/1/2
-reviews.put("/user_id/:fridge_id", async (req, res) => {
+fridges.put("/user_id/:fridge_id", async (req, res) => {
     const { user_id, fridge_id } = req.params;
     const updatedFridge = await updateFridge({
       fridge_id,
