@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { authenticateToken } = require("../middlewares/authenticateToken");
 const fridges = express.Router();
 const itemsController = require('./itemsController.js')
 
@@ -40,7 +40,7 @@ fridges.get('/:user_id/:fridge_id', async (req, res) => {
 })
 
 // CREATE http://localhost:3003/api/fridges/1
-fridges.post("/:user_id",  async (req, res) => {
+fridges.post("/:user_id", authenticateToken,  async (req, res) => {
     const { user_id } = req.params;
     // console.log(req.body, user_id)
     const newFridge = await createFridge({ ...req.body, user_id });
@@ -66,7 +66,7 @@ fridges.delete("/:fridge_id", async (req, res) => {
   });
 
 // UPDATE http://localhost:3003/api/fridges/1/2
-fridges.put("/:user_id/:fridge_id", async (req, res) => {
+fridges.put("/:user_id/:fridge_id", authenticateToken, async (req, res) => {
     const { user_id, fridge_id } = req.params;
     const updatedFridge = await updateFridge({
       fridge_id,
