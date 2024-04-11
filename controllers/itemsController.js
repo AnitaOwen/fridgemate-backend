@@ -51,8 +51,8 @@ items.get("/:item_id", async (req, res) => {
 
 // CREATE http://localhost:3003/api/fridges/1/2/items
 items.post("/", async (req, res) => {
-    const { fridge_id } = req.params;
-    const newItem = await createItem({ ...req.body, fridge_id });
+    const { user_id, fridge_id } = req.params;
+    const newItem = await createItem({ ...req.body, fridge_id, user_id });
   
     if (newItem.id) {
       res.status(200).json(newItem);

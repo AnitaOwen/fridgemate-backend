@@ -38,7 +38,7 @@ const createFridge = async (fridge) => {
   };
 
 // DELETE 
-const deleteFridge = async (fridgeId, userId) => {
+const deleteFridge = async (fridgeId) => {
     try {
       const deletedFridge = await db.one(
         "DELETE FROM fridges WHERE id = $1 RETURNING *",
