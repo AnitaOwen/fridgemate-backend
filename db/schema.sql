@@ -28,7 +28,7 @@ CREATE TABLE items (
     id SERIAL PRIMARY KEY,
     name VARCHAR(500) NOT NULL,
     expiration_date DATE,
-    amount_paid INTEGER,
+    amount_paid DECIMAL(5, 2),
     fridge_id INTEGER REFERENCES fridges(id) ON DELETE CASCADE,
     user_id INTEGER REFERENCES users(id),
     category TEXT NOT NULL
