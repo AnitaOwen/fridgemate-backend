@@ -1,4 +1,6 @@
 const express = require("express");
+const { authenticateToken } = require("../middlewares/authenticateToken");
+
 
 const {
     getAllItems,
@@ -50,7 +52,7 @@ items.get("/:item_id", async (req, res) => {
   });
 
 // CREATE http://localhost:3003/api/fridges/1/2/items
-items.post("/", async (req, res) => {
+items.post("/", authenticateToken, async (req, res) => {
     const { user_id, fridge_id } = req.params;
     const newItem = await createItem({ ...req.body, fridge_id, user_id });
   
@@ -75,7 +77,7 @@ items.delete("/:item_id", async (req, res) => {
   });
 
 // UPDATE http://localhost:3003/api/fridges/1/2/items/13
-items.put("/:item_id", async (req, res) => {
+items.put("/:item_id", authenticateToken, async (req, res) => {
     const { user_id, fridge_id, item_id } = req.params;
     const updatedItem = await updateItem({
       ...req.body,
