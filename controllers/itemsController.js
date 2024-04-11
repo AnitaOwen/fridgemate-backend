@@ -9,6 +9,7 @@ const {
     deleteItem,
     updateItem,
     getUniqueCategoriesByUserAndFridge,
+    getAllUniqueCategories,
     // getCategoriesWithItems
   } = require("../queries/items.js");
 
@@ -41,6 +42,15 @@ items.get("/", async (req, res) => {
     if(categories[0]) res.status(200).json(categories) 
     else res.status(404).json({ error: "Error fetching categories." })
   })
+
+  // UNIQUE CATEGORIES in items
+  // http://localhost:3003/api/fridges/1/2/items/categories/all
+  items.get("/categories/all", async (req, res) => {
+    const categories = await getAllUniqueCategories()
+    if(categories[0]) res.status(200).json(categories) 
+    else res.status(404).json({ error: "Error fetching categories." })
+  })
+
 
 // SHOW
 //  http://localhost:3003/api/fridges/1/2/items/13

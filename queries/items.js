@@ -107,6 +107,21 @@ const updateItem = async (item) => {
     }
   }
 
+  const getAllUniqueCategories = async () => {
+    try {
+      const uniqueCategories = await db.any(
+        'SELECT DISTINCT category FROM items')
+      // [
+      //   { category: 'Fruit' },
+      //   { category: 'Vegetable' },
+      //   { category: 'Dairy' }
+      // ]
+      return uniqueCategories.map((categoryObject) => categoryObject.category)
+    } catch (error) {
+      console.error('Error fetching unique categories:', error)
+    }
+  }
+
   module.exports = {
     getAllItems,
     getOneItem, 
@@ -114,6 +129,7 @@ const updateItem = async (item) => {
     deleteItem,
     updateItem,
     getUniqueCategoriesByUserAndFridge,
+    getAllUniqueCategories, 
     // getCategoriesWithItems
   };
   
