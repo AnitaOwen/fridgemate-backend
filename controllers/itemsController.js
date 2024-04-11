@@ -8,7 +8,8 @@ const {
     createItem,
     deleteItem,
     updateItem,
-    getCategoriesWithItems
+    getUniqueCategoriesByUserAndFridge,
+    // getCategoriesWithItems
   } = require("../queries/items.js");
 
 const { getOneFridge } = require("../queries/fridges.js");
@@ -16,7 +17,8 @@ const { getOneFridge } = require("../queries/fridges.js");
 const items = express.Router({ mergeParams: true });
 
 
-// INDEX http://localhost:3003/api/fridges/1/2/items
+// INDEX 
+// http://localhost:3003/api/fridges/1/2/items
 items.get("/", async (req, res) => {
     const { user_id, fridge_id  } = req.params;
   
@@ -31,12 +33,17 @@ items.get("/", async (req, res) => {
     }
   });
 
-  // items.get("/categories", async (req, res) => {
-  //   const { user_id, fridge_id } = req.params
-  //   const categoriesWithItems = await getCategoriesWithItems(fridge_id, user_id)
-  // })
+  // UNIQUE CATEGORIES BY FRIDGE ID
+  // http://localhost:3003/api/fridges/1/2/items/categories
+  items.get("/categories", async (req, res) => {
+    const { fridge_id } = req.params;
+    const categories = await getUniqueCategoriesByUserAndFridge(fridge_id)
+    if(categories[0]) res.status(200).json(categories) 
+    else res.status(404).json({ error: "Error fetching categories." })
+  })
 
-// SHOW http://localhost:3003/api/fridges/1/2/items/13
+// SHOW
+//  http://localhost:3003/api/fridges/1/2/items/13
 items.get("/:item_id", async (req, res) => {
     const { user_id, fridge_id, item_id } = req.params;
   
@@ -51,8 +58,9 @@ items.get("/:item_id", async (req, res) => {
     }
   });
 
-// CREATE http://localhost:3003/api/fridges/1/2/items
-items.post("/", authenticateToken, async (req, res) => {
+// CREATE 
+// http://localhost:3003/api/fridges/1/2/items
+items.post("/", async (req, res) => {
     const { user_id, fridge_id } = req.params;
     const newItem = await createItem({ ...req.body, fridge_id, user_id });
   
@@ -63,7 +71,8 @@ items.post("/", authenticateToken, async (req, res) => {
     }
   });
 
-// DELETE http://localhost:3003/api/fridges/1/2/items/13
+// DELETE 
+// http://localhost:3003/api/fridges/1/2/items/13
 items.delete("/:item_id", async (req, res) => {
     const { item_id } = req.params;
 
@@ -76,7 +85,8 @@ items.delete("/:item_id", async (req, res) => {
     }
   });
 
-// UPDATE http://localhost:3003/api/fridges/1/2/items/13
+// UPDATE 
+// http://localhost:3003/api/fridges/1/2/items/13
 items.put("/:item_id", authenticateToken, async (req, res) => {
     const { user_id, fridge_id, item_id } = req.params;
     const updatedItem = await updateItem({
@@ -85,11 +95,9 @@ items.put("/:item_id", authenticateToken, async (req, res) => {
       fridge_id,
       item_id
     });
-    if (updatedItem.id) {
-      res.status(200).json(updatedItem);
-    } else {
-      res.status(404).json({ error: "Item not found" });
-    }
+    if (updatedItem.id) res.status(200).json(updatedItem)
+    else res.status(404).json({ error: "Item not found" });
   });
 
+  
   module.exports = items;

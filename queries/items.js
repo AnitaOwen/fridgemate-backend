@@ -79,18 +79,33 @@ const updateItem = async (item) => {
   };
   
   // CATEGORIES & ITEMS
-  const getCategoriesWithItems = async (fridge_id, user_id) => {
+  // const getCategoriesWithItems = async (fridge_id, user_id) => {
+  //   try {
+  //     const categoriesWithItems = await db.any(
+  //       "SELECT items.*, categories.id AS category_id, categories.name AS category_name FROM items LEFT JOIN categories ON items.category_id = categories.id WHERE items.fridge_id = $2 AND items.user_id = $1",
+  //       [fridge_id, user_id]
+  //     )
+  //     return categoriesWithItems
+  //   } catch (error) {
+  //     return error
+  //   }
+  // }
+
+  // CATEGORIES
+  const getUniqueCategoriesByUserAndFridge = async (fridgeId) => {
     try {
-      const categoriesWithItems = await db.any(
-        "SELECT items.*, categories.id AS category_id, categories.name AS category_name FROM items LEFT JOIN categories ON items.category_id = categories.id WHERE items.fridge_id = $2 AND items.user_id = $1",
-        [fridge_id, user_id]
-      )
-      return categoriesWithItems
+      const uniqueCategories = await db.any(
+        'SELECT DISTINCT category FROM items WHERE fridge_id = $1', fridgeId)
+      // [
+      //   { category: 'Fruit' },
+      //   { category: 'Vegetable' },
+      //   { category: 'Dairy' }
+      // ]
+      return uniqueCategories.map((categoryObject) => categoryObject.category)
     } catch (error) {
-      return error
+      console.error('Error fetching unique categories:', error)
     }
   }
-
 
   module.exports = {
     getAllItems,
@@ -98,6 +113,7 @@ const updateItem = async (item) => {
     createItem,
     deleteItem,
     updateItem,
-    getCategoriesWithItems
+    getUniqueCategoriesByUserAndFridge,
+    // getCategoriesWithItems
   };
   
