@@ -41,5 +41,5 @@ VALUES
 ('Cream cheese', '2024-06-15', 6.00, 2, 1, 'Dairy'),
 ('Egg salad', '2024-04-18', 5.00, 1, 1, 'Other'),
 ('Caesar salad with chicken', '2024-04-29', 5.00, 1, 1, 'Other'),
-('Birthday cake', '2024-04-29', 0.00 , 2, 1, 'Sweet'),
+('Chocolate cake', '2024-04-29', 18.00 , 2, 1, 'Sweet'),
 ('Leftover pizza', '2024-04-20', 18.00 , 2, 1, 'Other');
