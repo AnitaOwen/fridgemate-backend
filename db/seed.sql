@@ -42,4 +42,4 @@ VALUES
 ('Egg salad', '2024-04-18', 5.00, 1, 1, 'Other'),
 ('Caesar salad with chicken', '2024-04-29', 5.00, 1, 1, 'Other'),
 ('Chocolate cake', '2024-04-29', 18.00 , 2, 1, 'Sweet'),
-('Leftover pizza', '2024-04-20', 18.00 , 2, 1, 'Other');
+('Pepperoni pizza', '2024-04-20', 22.00 , 2, 1, 'Takeout');
