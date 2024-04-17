@@ -24,7 +24,7 @@ cron.schedule("*/5 * * * *", () => {
 app.use(
   cors({
     // origin: "http://localhost:3000",
-    origin: "https://main--fridgem8.netlify.app/",
+    origin: "https://main--fridgem8.netlify.app",
   })
 );
 app.use(express.json());
